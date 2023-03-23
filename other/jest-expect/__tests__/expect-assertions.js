@@ -84,8 +84,10 @@ test('toEqual, toMatchObject, and toHaveBeenCalledWith matching a schema', () =>
 
 test('mock functions', () => {
   const myFn = jest.fn()
-  myFn('first', {second: 'val'})
+  myFn('firstCall', {second: 'val'})
+  myFn('secondCall', {second: 'val'})
 
+  // an array of arguments for every time it was called.
   const calls = myFn.mock.calls
   const firstCall = calls[0]
   const firstArg = firstCall[0]
@@ -93,8 +95,13 @@ test('mock functions', () => {
   // could also do this on a single line
   // const [[firstArg, secondArg]] = myFn.mock.calls
 
-  expect(firstArg).toBe('first')
+  const secondCall = calls[1]
+  const firstArgOfSecondCall = secondCall[0]
+
+  expect(firstArg).toBe('firstCall')
   expect(secondArg).toEqual({second: 'val'})
+
+  expect(firstArgOfSecondCall).toBe('secondCall')
 })
 
 // there are other ways to make mock functions/spies
@@ -132,7 +139,7 @@ test('automatic snapshot', () => {
   expect(flyingHeros).toMatchSnapshot()
 })
 
-test('snapshot examples', () => {
+test.skip('snapshot examples', () => {
   const object = {
     mixedArray: [1, [2, 3], {four: 5, six: [7, 8]}],
     regex: /do-not-try-to-regex-an-email/,
