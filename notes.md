@@ -13,3 +13,9 @@ Pull up the entire application and go through - as close as possible - it like a
 - Penetration Tests
 - Accessibility (a11y)
 - Smoke Tests
+
+
+The more closely your tests resemble how the software is actually used, the more value the test has
+
+Make sure all your assertions are actually running. You could test this by breaking the source code and making sure
+every assertion breaks, which means all assertions are running.
