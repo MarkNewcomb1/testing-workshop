@@ -3,17 +3,21 @@ import thumbWar from '../thumb-war'
 import * as utils from '../utils'
 
 test('returns winner', () => {
-  // replace these lines with a call to jest.spyOn and
-  // call to mockImplementation on the mocked function (See hint #1)
-  const originalGetWinner = utils.getWinner
-  utils.getWinner = (p1, p2) => p2
+  // this is bad - modifying things on an import namespace doesn't work with the spec
+  jest.spyOn(utils, 'getWinner')
+  // now because we spied on it, it has a mockImplementation wrapper on it
+  utils.getWinner.mockImplementation((p1, p2) => p2)
 
   const winner = thumbWar('Ken Wheeler', 'Kent C. Dodds')
   expect(winner).toBe('Kent C. Dodds')
+  expect(utils.getWinner.mock.calls).toEqual([
+    ['Ken Wheeler', 'Kent C. Dodds'],
+    ['Ken Wheeler', 'Kent C. Dodds'],
+  ])
 
   // replace the next two lines with a restoration of the original function
   // (See hint #2)
-  utils.getWinner = originalGetWinner
+  utils.getWinner.mockRestore()
 })
 
 /*
