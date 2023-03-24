@@ -12,6 +12,10 @@ jest.mock('../utils', () => {
   }
 })
 
+// look up jest.resetModules, otherwise you can do
+// like in client/src/__mocks__/axios.js where you have
+// your own reset method
+
 test('returns winner', () => {
   const winner = thumbWar('Ken Wheeler', 'Kent C. Dodds')
   expect(winner).toBe('Kent C. Dodds')
